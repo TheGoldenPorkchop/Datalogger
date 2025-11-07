@@ -22,16 +22,27 @@ Partial Class DataLogger
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.ButtonGroupBox = New System.Windows.Forms.GroupBox()
         Me.ExitButton = New System.Windows.Forms.Button()
         Me.GraphButton = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.GraphPictureBox = New System.Windows.Forms.PictureBox()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.TopMenuStrip = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OpenTopMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SampleTimer = New System.Windows.Forms.Timer(Me.components)
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.SampleRateComboBox = New System.Windows.Forms.ComboBox()
+        Me.SampleRateGroupBox = New System.Windows.Forms.GroupBox()
+        Me.MinutesRadioButton = New System.Windows.Forms.RadioButton()
+        Me.SecondsRadioButton = New System.Windows.Forms.RadioButton()
+        Me.MillisecondRadioButton = New System.Windows.Forms.RadioButton()
         Me.ButtonGroupBox.SuspendLayout()
         CType(Me.GraphPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.MenuStrip1.SuspendLayout()
+        Me.TopMenuStrip.SuspendLayout()
+        Me.SampleRateGroupBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'ButtonGroupBox
@@ -40,9 +51,9 @@ Partial Class DataLogger
         Me.ButtonGroupBox.Controls.Add(Me.ExitButton)
         Me.ButtonGroupBox.Controls.Add(Me.GraphButton)
         Me.ButtonGroupBox.Controls.Add(Me.Button1)
-        Me.ButtonGroupBox.Location = New System.Drawing.Point(506, 351)
+        Me.ButtonGroupBox.Location = New System.Drawing.Point(506, 299)
         Me.ButtonGroupBox.Name = "ButtonGroupBox"
-        Me.ButtonGroupBox.Size = New System.Drawing.Size(282, 87)
+        Me.ButtonGroupBox.Size = New System.Drawing.Size(282, 106)
         Me.ButtonGroupBox.TabIndex = 6
         Me.ButtonGroupBox.TabStop = False
         Me.ButtonGroupBox.Text = "GroupBox1"
@@ -82,41 +93,123 @@ Partial Class DataLogger
         Me.GraphPictureBox.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.GraphPictureBox.Location = New System.Drawing.Point(12, 27)
         Me.GraphPictureBox.Name = "GraphPictureBox"
-        Me.GraphPictureBox.Size = New System.Drawing.Size(776, 318)
+        Me.GraphPictureBox.Size = New System.Drawing.Size(776, 266)
         Me.GraphPictureBox.TabIndex = 5
         Me.GraphPictureBox.TabStop = False
         '
-        'MenuStrip1
+        'TopMenuStrip
         '
-        Me.MenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(800, 28)
-        Me.MenuStrip1.TabIndex = 7
-        Me.MenuStrip1.Text = "MenuStrip1"
+        Me.TopMenuStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.TopMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
+        Me.TopMenuStrip.Location = New System.Drawing.Point(0, 0)
+        Me.TopMenuStrip.Name = "TopMenuStrip"
+        Me.TopMenuStrip.Size = New System.Drawing.Size(800, 28)
+        Me.TopMenuStrip.TabIndex = 7
+        Me.TopMenuStrip.Text = "MenuStrip1"
         '
         'FileToolStripMenuItem
         '
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OpenTopMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 24)
         Me.FileToolStripMenuItem.Text = "&File"
         '
-        'Form1
+        'OpenTopMenuItem
+        '
+        Me.OpenTopMenuItem.Name = "OpenTopMenuItem"
+        Me.OpenTopMenuItem.Size = New System.Drawing.Size(128, 26)
+        Me.OpenTopMenuItem.Text = "&Open"
+        '
+        'SampleTimer
+        '
+        '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 415)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(800, 22)
+        Me.StatusStrip1.TabIndex = 8
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'OpenFileDialog1
+        '
+        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+        '
+        'SampleRateComboBox
+        '
+        Me.SampleRateComboBox.FormattingEnabled = True
+        Me.SampleRateComboBox.Location = New System.Drawing.Point(257, 306)
+        Me.SampleRateComboBox.Name = "SampleRateComboBox"
+        Me.SampleRateComboBox.Size = New System.Drawing.Size(121, 24)
+        Me.SampleRateComboBox.TabIndex = 9
+        '
+        'SampleRateGroupBox
+        '
+        Me.SampleRateGroupBox.Controls.Add(Me.MinutesRadioButton)
+        Me.SampleRateGroupBox.Controls.Add(Me.SecondsRadioButton)
+        Me.SampleRateGroupBox.Controls.Add(Me.MillisecondRadioButton)
+        Me.SampleRateGroupBox.Location = New System.Drawing.Point(384, 299)
+        Me.SampleRateGroupBox.Name = "SampleRateGroupBox"
+        Me.SampleRateGroupBox.Size = New System.Drawing.Size(116, 106)
+        Me.SampleRateGroupBox.TabIndex = 10
+        Me.SampleRateGroupBox.TabStop = False
+        Me.SampleRateGroupBox.Text = "Sample Rate"
+        '
+        'MinutesRadioButton
+        '
+        Me.MinutesRadioButton.AutoSize = True
+        Me.MinutesRadioButton.Location = New System.Drawing.Point(6, 77)
+        Me.MinutesRadioButton.Name = "MinutesRadioButton"
+        Me.MinutesRadioButton.Size = New System.Drawing.Size(74, 20)
+        Me.MinutesRadioButton.TabIndex = 2
+        Me.MinutesRadioButton.TabStop = True
+        Me.MinutesRadioButton.Text = "Minutes"
+        Me.MinutesRadioButton.UseVisualStyleBackColor = True
+        '
+        'SecondsRadioButton
+        '
+        Me.SecondsRadioButton.AutoSize = True
+        Me.SecondsRadioButton.Location = New System.Drawing.Point(6, 51)
+        Me.SecondsRadioButton.Name = "SecondsRadioButton"
+        Me.SecondsRadioButton.Size = New System.Drawing.Size(82, 20)
+        Me.SecondsRadioButton.TabIndex = 1
+        Me.SecondsRadioButton.TabStop = True
+        Me.SecondsRadioButton.Text = "Seconds"
+        Me.SecondsRadioButton.UseVisualStyleBackColor = True
+        '
+        'MillisecondRadioButton
+        '
+        Me.MillisecondRadioButton.AutoSize = True
+        Me.MillisecondRadioButton.Checked = True
+        Me.MillisecondRadioButton.Location = New System.Drawing.Point(6, 25)
+        Me.MillisecondRadioButton.Name = "MillisecondRadioButton"
+        Me.MillisecondRadioButton.Size = New System.Drawing.Size(103, 20)
+        Me.MillisecondRadioButton.TabIndex = 0
+        Me.MillisecondRadioButton.TabStop = True
+        Me.MillisecondRadioButton.Text = "Milliseconds"
+        Me.MillisecondRadioButton.UseVisualStyleBackColor = True
+        '
+        'DataLogger
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(800, 437)
+        Me.Controls.Add(Me.SampleRateGroupBox)
+        Me.Controls.Add(Me.SampleRateComboBox)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.ButtonGroupBox)
         Me.Controls.Add(Me.GraphPictureBox)
-        Me.Controls.Add(Me.MenuStrip1)
-        Me.MainMenuStrip = Me.MenuStrip1
-        Me.Name = "Form1"
+        Me.Controls.Add(Me.TopMenuStrip)
+        Me.MainMenuStrip = Me.TopMenuStrip
+        Me.Name = "DataLogger"
         Me.Text = "Form1"
         Me.ButtonGroupBox.ResumeLayout(False)
         CType(Me.GraphPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
+        Me.TopMenuStrip.ResumeLayout(False)
+        Me.TopMenuStrip.PerformLayout()
+        Me.SampleRateGroupBox.ResumeLayout(False)
+        Me.SampleRateGroupBox.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -127,6 +220,15 @@ Partial Class DataLogger
     Friend WithEvents GraphButton As Button
     Friend WithEvents Button1 As Button
     Friend WithEvents GraphPictureBox As PictureBox
-    Friend WithEvents MenuStrip1 As MenuStrip
+    Friend WithEvents TopMenuStrip As MenuStrip
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SampleTimer As Timer
+    Friend WithEvents OpenTopMenuItem As ToolStripMenuItem
+    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents OpenFileDialog1 As OpenFileDialog
+    Friend WithEvents SampleRateComboBox As ComboBox
+    Friend WithEvents SampleRateGroupBox As GroupBox
+    Friend WithEvents MinutesRadioButton As RadioButton
+    Friend WithEvents SecondsRadioButton As RadioButton
+    Friend WithEvents MillisecondRadioButton As RadioButton
 End Class
