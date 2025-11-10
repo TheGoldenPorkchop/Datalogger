@@ -42,7 +42,6 @@ Partial Class DataLogger
         Me.Label3 = New System.Windows.Forms.Label()
         Me.PortsComboBox = New System.Windows.Forms.ComboBox()
         Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.SerialGroupBox = New System.Windows.Forms.GroupBox()
         Me.ButtonGroupBox.SuspendLayout()
         CType(Me.GraphPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -146,7 +145,7 @@ Partial Class DataLogger
         '
         Me.SampleRateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.SampleRateComboBox.FormattingEnabled = True
-        Me.SampleRateComboBox.Location = New System.Drawing.Point(115, 64)
+        Me.SampleRateComboBox.Location = New System.Drawing.Point(6, 71)
         Me.SampleRateComboBox.Name = "SampleRateComboBox"
         Me.SampleRateComboBox.Size = New System.Drawing.Size(121, 24)
         Me.SampleRateComboBox.TabIndex = 9
@@ -201,7 +200,7 @@ Partial Class DataLogger
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(112, 15)
+        Me.Label3.Location = New System.Drawing.Point(3, 22)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(72, 16)
         Me.Label3.TabIndex = 16
@@ -211,28 +210,20 @@ Partial Class DataLogger
         '
         Me.PortsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.PortsComboBox.FormattingEnabled = True
-        Me.PortsComboBox.Location = New System.Drawing.Point(115, 34)
+        Me.PortsComboBox.Location = New System.Drawing.Point(6, 41)
         Me.PortsComboBox.Name = "PortsComboBox"
         Me.PortsComboBox.Size = New System.Drawing.Size(121, 24)
         Me.PortsComboBox.TabIndex = 15
         '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(6, 64)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(100, 22)
-        Me.TextBox1.TabIndex = 17
-        '
         'SerialGroupBox
         '
         Me.SerialGroupBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.SerialGroupBox.Controls.Add(Me.TextBox1)
         Me.SerialGroupBox.Controls.Add(Me.Label3)
         Me.SerialGroupBox.Controls.Add(Me.PortsComboBox)
         Me.SerialGroupBox.Controls.Add(Me.SampleRateComboBox)
-        Me.SerialGroupBox.Location = New System.Drawing.Point(124, 305)
+        Me.SerialGroupBox.Location = New System.Drawing.Point(243, 305)
         Me.SerialGroupBox.Name = "SerialGroupBox"
-        Me.SerialGroupBox.Size = New System.Drawing.Size(254, 100)
+        Me.SerialGroupBox.Size = New System.Drawing.Size(135, 100)
         Me.SerialGroupBox.TabIndex = 18
         Me.SerialGroupBox.TabStop = False
         Me.SerialGroupBox.Text = "Serial"
@@ -283,6 +274,5 @@ Partial Class DataLogger
     Friend WithEvents Label3 As Label
     Friend WithEvents PortsComboBox As ComboBox
     Friend WithEvents SerialPort1 As IO.Ports.SerialPort
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents SerialGroupBox As GroupBox
 End Class

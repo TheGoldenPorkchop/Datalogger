@@ -1,7 +1,7 @@
 ﻿'Angel Nava
-'Spring 2025
-'RCET2265
-'SayMyName
+'Fall 2025
+'RCET3371
+'DataLogger
 'https://github.com/TheGoldenPorkchop/Datalogger
 Option Strict On
 Option Explicit On
@@ -227,7 +227,6 @@ Public Class DataLogger
     End Sub
 
     Private Sub SampleTimer_Tick(sender As Object, e As EventArgs) Handles SampleTimer.Tick
-        'AnalogRead()
         GetAnalogData()
         GraphData()
 
