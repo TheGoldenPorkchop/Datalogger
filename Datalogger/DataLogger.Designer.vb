@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class DataLogger
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,13 +20,13 @@ Partial Class DataLogger
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.ButtonGroupBox = New System.Windows.Forms.GroupBox()
         Me.ExitButton = New System.Windows.Forms.Button()
         Me.GraphButton = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.SaveButton = New System.Windows.Forms.Button()
         Me.GraphPictureBox = New System.Windows.Forms.PictureBox()
         Me.TopMenuStrip = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -42,10 +42,13 @@ Partial Class DataLogger
         Me.Label3 = New System.Windows.Forms.Label()
         Me.PortsComboBox = New System.Windows.Forms.ComboBox()
         Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.SerialGroupBox = New System.Windows.Forms.GroupBox()
         Me.ButtonGroupBox.SuspendLayout()
         CType(Me.GraphPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TopMenuStrip.SuspendLayout()
         Me.SampleRateGroupBox.SuspendLayout()
+        Me.SerialGroupBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'ButtonGroupBox
@@ -53,7 +56,7 @@ Partial Class DataLogger
         Me.ButtonGroupBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ButtonGroupBox.Controls.Add(Me.ExitButton)
         Me.ButtonGroupBox.Controls.Add(Me.GraphButton)
-        Me.ButtonGroupBox.Controls.Add(Me.Button1)
+        Me.ButtonGroupBox.Controls.Add(Me.SaveButton)
         Me.ButtonGroupBox.Location = New System.Drawing.Point(506, 299)
         Me.ButtonGroupBox.Name = "ButtonGroupBox"
         Me.ButtonGroupBox.Size = New System.Drawing.Size(282, 106)
@@ -79,14 +82,14 @@ Partial Class DataLogger
         Me.GraphButton.Text = "&Graph"
         Me.GraphButton.UseVisualStyleBackColor = True
         '
-        'Button1
+        'SaveButton
         '
-        Me.Button1.Location = New System.Drawing.Point(7, 21)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(86, 76)
-        Me.Button1.TabIndex = 1
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.SaveButton.Location = New System.Drawing.Point(7, 21)
+        Me.SaveButton.Name = "SaveButton"
+        Me.SaveButton.Size = New System.Drawing.Size(86, 76)
+        Me.SaveButton.TabIndex = 1
+        Me.SaveButton.Text = "Save"
+        Me.SaveButton.UseVisualStyleBackColor = True
         '
         'GraphPictureBox
         '
@@ -120,7 +123,7 @@ Partial Class DataLogger
         'OpenTopMenuItem
         '
         Me.OpenTopMenuItem.Name = "OpenTopMenuItem"
-        Me.OpenTopMenuItem.Size = New System.Drawing.Size(128, 26)
+        Me.OpenTopMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.OpenTopMenuItem.Text = "&Open"
         '
         'SampleTimer
@@ -143,13 +146,14 @@ Partial Class DataLogger
         '
         Me.SampleRateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.SampleRateComboBox.FormattingEnabled = True
-        Me.SampleRateComboBox.Location = New System.Drawing.Point(257, 372)
+        Me.SampleRateComboBox.Location = New System.Drawing.Point(115, 64)
         Me.SampleRateComboBox.Name = "SampleRateComboBox"
         Me.SampleRateComboBox.Size = New System.Drawing.Size(121, 24)
         Me.SampleRateComboBox.TabIndex = 9
         '
         'SampleRateGroupBox
         '
+        Me.SampleRateGroupBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SampleRateGroupBox.Controls.Add(Me.MinutesRadioButton)
         Me.SampleRateGroupBox.Controls.Add(Me.SecondsRadioButton)
         Me.SampleRateGroupBox.Controls.Add(Me.MillisecondRadioButton)
@@ -197,7 +201,7 @@ Partial Class DataLogger
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(254, 323)
+        Me.Label3.Location = New System.Drawing.Point(112, 15)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(72, 16)
         Me.Label3.TabIndex = 16
@@ -205,25 +209,41 @@ Partial Class DataLogger
         '
         'PortsComboBox
         '
-        Me.PortsComboBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PortsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.PortsComboBox.FormattingEnabled = True
-        Me.PortsComboBox.Location = New System.Drawing.Point(257, 342)
+        Me.PortsComboBox.Location = New System.Drawing.Point(115, 34)
         Me.PortsComboBox.Name = "PortsComboBox"
         Me.PortsComboBox.Size = New System.Drawing.Size(121, 24)
         Me.PortsComboBox.TabIndex = 15
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(6, 64)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(100, 22)
+        Me.TextBox1.TabIndex = 17
+        '
+        'SerialGroupBox
+        '
+        Me.SerialGroupBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SerialGroupBox.Controls.Add(Me.TextBox1)
+        Me.SerialGroupBox.Controls.Add(Me.Label3)
+        Me.SerialGroupBox.Controls.Add(Me.PortsComboBox)
+        Me.SerialGroupBox.Controls.Add(Me.SampleRateComboBox)
+        Me.SerialGroupBox.Location = New System.Drawing.Point(124, 305)
+        Me.SerialGroupBox.Name = "SerialGroupBox"
+        Me.SerialGroupBox.Size = New System.Drawing.Size(254, 100)
+        Me.SerialGroupBox.TabIndex = 18
+        Me.SerialGroupBox.TabStop = False
+        Me.SerialGroupBox.Text = "Serial"
         '
         'DataLogger
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 437)
-        Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.PortsComboBox)
+        Me.Controls.Add(Me.SerialGroupBox)
         Me.Controls.Add(Me.SampleRateGroupBox)
-        Me.Controls.Add(Me.SampleRateComboBox)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.ButtonGroupBox)
         Me.Controls.Add(Me.GraphPictureBox)
@@ -237,6 +257,8 @@ Partial Class DataLogger
         Me.TopMenuStrip.PerformLayout()
         Me.SampleRateGroupBox.ResumeLayout(False)
         Me.SampleRateGroupBox.PerformLayout()
+        Me.SerialGroupBox.ResumeLayout(False)
+        Me.SerialGroupBox.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -245,7 +267,7 @@ Partial Class DataLogger
     Friend WithEvents ButtonGroupBox As GroupBox
     Friend WithEvents ExitButton As Button
     Friend WithEvents GraphButton As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents SaveButton As Button
     Friend WithEvents GraphPictureBox As PictureBox
     Friend WithEvents TopMenuStrip As MenuStrip
     Friend WithEvents FileToolStripMenuItem As ToolStripMenuItem
@@ -261,4 +283,6 @@ Partial Class DataLogger
     Friend WithEvents Label3 As Label
     Friend WithEvents PortsComboBox As ComboBox
     Friend WithEvents SerialPort1 As IO.Ports.SerialPort
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents SerialGroupBox As GroupBox
 End Class

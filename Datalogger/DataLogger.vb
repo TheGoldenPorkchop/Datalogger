@@ -1,4 +1,11 @@
-﻿Imports System.IO.Ports
+﻿'Angel Nava
+'Spring 2025
+'RCET2265
+'SayMyName
+'https://github.com/TheGoldenPorkchop/Datalogger
+Option Strict On
+Option Explicit On
+Imports System.IO.Ports
 
 Public Class DataLogger
     Dim DataBuffer As New Queue(Of Integer)
@@ -22,24 +29,24 @@ Public Class DataLogger
         Dim filePath As String = $"..\..\data_{DateTime.Now.ToString("yyMMddhh")}.log"
         Dim exactTime As String = DateTime.Now.ToString '("yyMMddhh") 'MODIFY FOR 
         FileOpen(1, filePath, OpenMode.Append)
+        Write(1, "$$AN1")
+        Write(1, currentSample)
         Write(1, DateTime.Now)
-        Write(1, DateTime.Now.Millisecond)
-        WriteLine(1, currentSample)
+        WriteLine(1, DateTime.Now.Millisecond)
         FileClose(1)
     End Sub
 
     Sub LoadData()
         Dim choice As DialogResult
-        Dim fileNumber As Integer = FreeFile()
-        Dim currentRecord As String
+        Dim fileNumber% = FreeFile()
+        Dim currentRecord$
         Dim temp() As String
 
         OpenFileDialog1.FileName = ""
         OpenFileDialog1.Filter = "log file (*.log)|*.log"
         choice = OpenFileDialog1.ShowDialog()
         If choice = DialogResult.OK Then
-            MsgBox(OpenFileDialog1.FileName)
-
+            'MsgBox(OpenFileDialog1.FileName)
             Try
                 FileOpen(fileNumber, OpenFileDialog1.FileName, OpenMode.Input)
                 Me.DataBuffer.Clear()
@@ -47,15 +54,18 @@ Public Class DataLogger
                 Do Until EOF(fileNumber)
                     currentRecord = LineInput(fileNumber)
                     temp = Split(currentRecord, ",")
-                    Me.DataBuffer.Enqueue(CInt(temp(temp.GetUpperBound(0))))
+
+                    Me.DataBuffer.Enqueue(CInt(temp((1))))
+
+
                 Loop
                 FileClose(fileNumber)
             Catch ex As Exception
                 MsgBox(ex.Message)
             End Try
-
         Else
-            MsgBox("Erm...")
+            'cancel
+            'MsgBox("Canceled")
         End If
         GraphData()
     End Sub
@@ -90,38 +100,20 @@ Public Class DataLogger
             Dim buffer(numberOfBytes - 1) As Byte
             Dim got As Integer = SerialPort1.Read(buffer, 0, numberOfBytes)
             Dim analogbyte1 As Integer
-            Dim analogbyte2 As Integer
-            Dim totalAnalogData As Integer
 
-            If got > 0 Then
-                'Do Stuff
+            If got > 1 Then
                 analogbyte1 = CInt((buffer(0) / 256) * 100)
-                'analogbyte2 = CInt((buffer(1) / 256) * 100)
 
+                Me.DataBuffer.Enqueue(analogbyte1)
+
+                LogData(analogbyte1)
             End If
-
-            Dim _last%
-            Dim sample%
-
-
-
-            If Me.DataBuffer.Count > 0 Then
-                _last = Me.DataBuffer.Last
-            Else
-                _last = GetRandomNumberAround(50, 50)
-                '_last = analogbyte1
-            End If
-
-            If DataBuffer.Count >= 100 Then
-                Me.DataBuffer.Dequeue()
-            End If
-
-
-            'sample = GetRandomNumberAround(_last, 5)
-            sample = analogbyte1
-            Me.DataBuffer.Enqueue(sample)
-            LogData(sample)
         Catch ex As Exception
+            SampleRateGroupBox.Enabled = True
+            SampleTimer.Interval = 100
+            SampleTimer.Stop()
+            SampleTimer.Enabled = False
+            GraphButton.Text = "Graph"
             MsgBox("Try Reconnecting your QY@ Board")
         End Try
 
@@ -206,7 +198,7 @@ Public Class DataLogger
     End Sub
 
     Private Sub GraphButton_Click(sender As Object, e As EventArgs) Handles GraphButton.Click
-        Dim sampleRate As Integer = SampleRateComboBox.SelectedItem
+        Dim sampleRate As Integer = CInt(SampleRateComboBox.SelectedItem)
         If SampleTimer.Enabled Then
             SampleRateGroupBox.Enabled = True
             SampleTimer.Interval = 100
@@ -232,9 +224,6 @@ Public Class DataLogger
             SampleTimer.Start()
             GraphButton.Text = "Stop Graphing"
         End If
-        'GraphData()
-        'GetData()
-
     End Sub
 
     Private Sub SampleTimer_Tick(sender As Object, e As EventArgs) Handles SampleTimer.Tick
@@ -277,5 +266,9 @@ Public Class DataLogger
             SampleRateComboBox.Items.Add(10)
         End If
         SampleRateComboBox.SelectedIndex = 0
+    End Sub
+
+    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
+
     End Sub
 End Class
