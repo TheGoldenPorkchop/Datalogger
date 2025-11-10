@@ -39,6 +39,9 @@ Partial Class DataLogger
         Me.MinutesRadioButton = New System.Windows.Forms.RadioButton()
         Me.SecondsRadioButton = New System.Windows.Forms.RadioButton()
         Me.MillisecondRadioButton = New System.Windows.Forms.RadioButton()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.PortsComboBox = New System.Windows.Forms.ComboBox()
+        Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
         Me.ButtonGroupBox.SuspendLayout()
         CType(Me.GraphPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TopMenuStrip.SuspendLayout()
@@ -62,7 +65,7 @@ Partial Class DataLogger
         '
         Me.ExitButton.Location = New System.Drawing.Point(191, 21)
         Me.ExitButton.Name = "ExitButton"
-        Me.ExitButton.Size = New System.Drawing.Size(86, 56)
+        Me.ExitButton.Size = New System.Drawing.Size(86, 76)
         Me.ExitButton.TabIndex = 3
         Me.ExitButton.Text = "E&xitButton"
         Me.ExitButton.UseVisualStyleBackColor = True
@@ -71,7 +74,7 @@ Partial Class DataLogger
         '
         Me.GraphButton.Location = New System.Drawing.Point(99, 21)
         Me.GraphButton.Name = "GraphButton"
-        Me.GraphButton.Size = New System.Drawing.Size(86, 56)
+        Me.GraphButton.Size = New System.Drawing.Size(86, 76)
         Me.GraphButton.TabIndex = 2
         Me.GraphButton.Text = "&Graph"
         Me.GraphButton.UseVisualStyleBackColor = True
@@ -80,7 +83,7 @@ Partial Class DataLogger
         '
         Me.Button1.Location = New System.Drawing.Point(7, 21)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(86, 56)
+        Me.Button1.Size = New System.Drawing.Size(86, 76)
         Me.Button1.TabIndex = 1
         Me.Button1.Text = "Button1"
         Me.Button1.UseVisualStyleBackColor = True
@@ -138,8 +141,9 @@ Partial Class DataLogger
         '
         'SampleRateComboBox
         '
+        Me.SampleRateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.SampleRateComboBox.FormattingEnabled = True
-        Me.SampleRateComboBox.Location = New System.Drawing.Point(257, 306)
+        Me.SampleRateComboBox.Location = New System.Drawing.Point(257, 372)
         Me.SampleRateComboBox.Name = "SampleRateComboBox"
         Me.SampleRateComboBox.Size = New System.Drawing.Size(121, 24)
         Me.SampleRateComboBox.TabIndex = 9
@@ -190,11 +194,34 @@ Partial Class DataLogger
         Me.MillisecondRadioButton.Text = "Milliseconds"
         Me.MillisecondRadioButton.UseVisualStyleBackColor = True
         '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(254, 323)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(72, 16)
+        Me.Label3.TabIndex = 16
+        Me.Label3.Text = "Port Select"
+        '
+        'PortsComboBox
+        '
+        Me.PortsComboBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PortsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.PortsComboBox.FormattingEnabled = True
+        Me.PortsComboBox.Location = New System.Drawing.Point(257, 342)
+        Me.PortsComboBox.Name = "PortsComboBox"
+        Me.PortsComboBox.Size = New System.Drawing.Size(121, 24)
+        Me.PortsComboBox.TabIndex = 15
+        '
         'DataLogger
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 437)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.PortsComboBox)
         Me.Controls.Add(Me.SampleRateGroupBox)
         Me.Controls.Add(Me.SampleRateComboBox)
         Me.Controls.Add(Me.StatusStrip1)
@@ -231,4 +258,7 @@ Partial Class DataLogger
     Friend WithEvents MinutesRadioButton As RadioButton
     Friend WithEvents SecondsRadioButton As RadioButton
     Friend WithEvents MillisecondRadioButton As RadioButton
+    Friend WithEvents Label3 As Label
+    Friend WithEvents PortsComboBox As ComboBox
+    Friend WithEvents SerialPort1 As IO.Ports.SerialPort
 End Class

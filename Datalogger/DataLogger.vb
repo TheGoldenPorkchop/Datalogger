@@ -1,4 +1,6 @@
-﻿Public Class DataLogger
+﻿Imports System.IO.Ports
+
+Public Class DataLogger
     Dim DataBuffer As New Queue(Of Integer)
     'Program Logic-----------------------------------------------------------------------------------------------------------------------
 
@@ -80,6 +82,51 @@
 
     End Sub
 
+    Sub GetAnalogData()
+        AnalogRead()
+        Try
+            CheckForIllegalCrossThreadCalls = False
+            Dim numberOfBytes = SerialPort1.BytesToRead
+            Dim buffer(numberOfBytes - 1) As Byte
+            Dim got As Integer = SerialPort1.Read(buffer, 0, numberOfBytes)
+            Dim analogbyte1 As Integer
+            Dim analogbyte2 As Integer
+            Dim totalAnalogData As Integer
+
+            If got > 0 Then
+                'Do Stuff
+                analogbyte1 = CInt((buffer(0) / 256) * 100)
+                'analogbyte2 = CInt((buffer(1) / 256) * 100)
+
+            End If
+
+            Dim _last%
+            Dim sample%
+
+
+
+            If Me.DataBuffer.Count > 0 Then
+                _last = Me.DataBuffer.Last
+            Else
+                _last = GetRandomNumberAround(50, 50)
+                '_last = analogbyte1
+            End If
+
+            If DataBuffer.Count >= 100 Then
+                Me.DataBuffer.Dequeue()
+            End If
+
+
+            'sample = GetRandomNumberAround(_last, 5)
+            sample = analogbyte1
+            Me.DataBuffer.Enqueue(sample)
+            LogData(sample)
+        Catch ex As Exception
+            MsgBox("Try Reconnecting your QY@ Board")
+        End Try
+
+    End Sub
+
     Sub GraphData()
         Dim g As Graphics = GraphPictureBox.CreateGraphics
         Dim pen As New Pen(Color.Lime)
@@ -110,6 +157,47 @@
         pen.Dispose()
 
     End Sub
+    Sub GetPorts()
+        Dim ports() = SerialPort1.GetPortNames()
+        PortsComboBox.Items.Clear()
+
+        For Each port In ports
+            PortsComboBox.Items.Add(port)
+        Next
+        Try
+            PortsComboBox.SelectedIndex = 0
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Sub Connect()
+        SerialPort1.Close()
+        SerialPort1.BaudRate = 115200 'Q@ Board Default
+        SerialPort1.Parity = Parity.None
+        SerialPort1.StopBits = StopBits.One
+        SerialPort1.DataBits = 8
+        Try
+            SerialPort1.PortName = PortsComboBox.Text
+        Catch ex As Exception
+            MsgBox("Select or Change your Port via the Combo Box")
+        End Try
+        'SerialPort1.PortName = "COM5" 'RS232 Cable
+        SerialPort1.Open()
+    End Sub
+
+    Sub AnalogRead()
+        Dim data(0) As Byte
+        data(0) = &H53 'Read Analog
+
+        Try
+            SerialPort1.Write(data, 0, 1)
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
 
     'Event Handlers----------------------------------------------------------------------------------------------------------------------
 
@@ -150,8 +238,10 @@
     End Sub
 
     Private Sub SampleTimer_Tick(sender As Object, e As EventArgs) Handles SampleTimer.Tick
+        'AnalogRead()
+        GetAnalogData()
         GraphData()
-        GetData()
+
     End Sub
 
     Private Sub OpenTopMenuItem_Click(sender As Object, e As EventArgs) Handles OpenTopMenuItem.Click
@@ -159,6 +249,12 @@
     End Sub
 
     Private Sub DataLogger_Load(sender As Object, e As EventArgs) Handles Me.Load
+        GetPorts()
+        Try
+            Connect()
+        Catch ex As Exception
+            MsgBox("Connect your Qy@ Board")
+        End Try
         SampleRateComboBox.SelectedIndex = 0
     End Sub
 
@@ -180,5 +276,6 @@
             SampleRateComboBox.Items.Add(5)
             SampleRateComboBox.Items.Add(10)
         End If
+        SampleRateComboBox.SelectedIndex = 0
     End Sub
 End Class
